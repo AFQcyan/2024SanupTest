@@ -1,0 +1,30 @@
+<%@page import="java.sql.*"%>
+<%@ include file="db.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="./header.jsp"%>
+
+<%
+	
+	request.setCharacterEncoding("UTF-8");
+
+	String listSql = "SELECT * FROM TBL_COURSE_202301 cr, TBL_LECTURER_202301 lc WHERE cr.l_id = lc.l_id";
+	PreparedStatement pstmt = conn.prepareStatement(listSql);
+	
+	ResultSet rs = pstmt.executeQuery();
+
+
+	
+%>
+
+<h2 id='cont-title'>
+	교과목 수정
+</h2>
+<div id='inner-container'>
+<form action='i_action.jsp'>
+
+</form>
+</div>
+
+<%@ include file="./footer.jsp"%>
+    

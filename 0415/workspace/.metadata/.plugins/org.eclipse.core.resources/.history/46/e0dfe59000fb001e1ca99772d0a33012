@@ -1,0 +1,94 @@
+<%@page import="java.sql.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="db.jsp"%>
+
+<%
+
+String cId = request.getParameter("cId");
+
+String listSql = "SELECT * FROM TBL_COURSE_202301 cr, TBL_LECTURER_202301 lc WHERE cr.l_id = lc.l_id AND cr.c_id = '" + cId + "'";
+
+PreparedStatement pstmt = conn.prepareStatement(listSql);
+
+ResultSet rs =  pstmt.executeQuery();
+
+
+%>
+
+<%@ include file="./header.jsp"%>
+
+<h2 id='cont-title'>
+	교과목 수정
+</h2>
+
+<div id='inner-container'>
+	<table border="1">
+		
+		<tbody>
+		<%
+			while(rs.next()) {
+				String cName = rs.getString("c_name");
+				int credit = Integer.parseInt(rs.getString("credit"));
+				String lName = rs.getString("l_name");
+				int week = Integer.parseInt(rs.getString("week"));
+				String startHour = rs.getString("start_hour");
+				String endHour = rs.getString("end_hour");	
+				
+				%> 
+				
+				<tr>
+				<td>과목코드</td>
+				<td><input type="text" id='c_id' name='c_id' value='<%= cId %>'/></td>
+			</tr>
+			<tr>
+				<td>과목명</td>
+				<td><input type="text" id='c_name' name='c_name' value='<%= cName %>'/></td>
+			</tr>
+			<tr>
+				<td>학점</td>
+				<td><input type="number" id='credit' name='credit' value='<%= credit %>'/></td>
+			</tr>
+			<tr>
+				<td>담당강사</td>
+				<td>
+				<select id='l_name' name='l_name' required>
+					<option value='담당강사' disabled><%= lName %></option>
+					<option value='김교수' <%= lName.equals("김교수") ? "selected" : "" %>>김교수</option>
+					<option value='이교수' <%= lName.equals("이교수") ? "selected" : "" %>>이교수</option>
+					<option value='박교수' <%= lName.equals("박교수") ? "selected" : "" %>>박교수</option>
+					<option value='우교수' <%= lName.equals("우교수") ? "selected" : "" %>>우교수</option>
+					<option value='최교수' <%= lName.equals("최교수") ? "selected" : "" %>>최교수</option>
+					<option value='임교수' <%= lName.equals("임교수") ? "selected" : "" %>>임교수</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td>요일</td>
+				<td><%= week %></td>
+			</tr>
+			<tr>
+				<td>시작시간</td>
+				<td><%= startHour %></td>
+			</tr>
+			<tr>
+				<td>종료시간</td>
+				<td><%= endHour %></td>
+			</tr>
+			<tr>
+			<td colspan="2">
+				<button type="submit">수정</button>
+				<button onclick="alert('취소되었습니다.');">취소</button>
+			</td>
+				
+			</tr>				
+				
+				<%
+			}
+		%>
+			
+		</tbody>
+	
+	</table>
+</div>
+
+<%@ include file="./footer.jsp"%>

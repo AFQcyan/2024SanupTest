@@ -1,0 +1,21 @@
+<%@page import="java.sql.*"%>
+<%@ include file="db.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<% 
+	request.setCharacterEncoding("utf-8");
+
+	String paramCId = request.getParameter("c_id");
+	String paramCName = request.getParameter("c_name");
+	int paramCredit = Integer.parseInt(request.getParameter("credit"));
+	String paramLName = request.getParameter("l_name");
+	int week = 
+
+	String delSql = "DELETE FROM TBL_COURSE_202301 WHERE c_id = " + paramCId;
+	Statement pstmt = conn.prepareStatement(delSql);
+	
+	pstmt.executeQuery(delSql);
+	
+	response.sendRedirect("showList.jsp");
+%>

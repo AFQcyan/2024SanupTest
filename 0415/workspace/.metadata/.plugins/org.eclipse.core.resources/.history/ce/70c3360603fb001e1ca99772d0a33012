@@ -1,0 +1,34 @@
+<%@page import="java.sql.*"%>
+<%@ include file="db.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<% 
+	request.setCharacterEncoding("utf-8");
+
+	String paramCId = request.getParameter("c_id");
+	String paramCName = request.getParameter("c_name");
+	int paramCredit = Integer.parseInt(request.getParameter("credit"));
+	String paramLId = request.getParameter("l_id");
+	int paramWeek = Integer.parseInt(request.getParameter("week"));
+	int paramStartHour = Integer.parseInt(request.getParameter("start_hour"));
+	int paramEndHour = Integer.parseInt(request.getParameter("end_hour"));
+	
+
+	String modfSql = 
+			"UPDATE TBL_COURSE_202301 SET"
+			+ "c_name = '"
+			+ paramCName
+			+ "', credit = "
+			+ paramCredit
+			+ ", l_id = "
+			+ paramLId
+			+ ", week = "
+			+ 
+			;
+	Statement pstmt = conn.prepareStatement(delSql);
+	
+	pstmt.executeQuery(delSql);
+	
+	response.sendRedirect("showList.jsp");
+%>
